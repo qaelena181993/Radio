@@ -1,66 +1,50 @@
 package ru.netology;
 
 public class Radio {
-    private final int minNumStation = 0;
-    private final int maxNumStation = 9;
-    private final int minVolume = 0;
-    private final int maxVolume = 10;
-    private int currentStation;
-    private int currentVolume;
 
-    public int getCurrentStation() {
-        return currentStation;
+    private int currentRadioChanel;
+    private int currentRadioVolume;
+
+    public int getCurrentRadioChanel() {
+        return currentRadioChanel;
     }
 
-    public void setCurrentStation(int currentStation) {
-        this.currentStation = currentStation;
+    public void setCurrentRadioChanel(int currentRadioChanel) {
+        if (currentRadioChanel >= 0 && currentRadioChanel <= 9)
+            this.currentRadioChanel = currentRadioChanel;
     }
 
-    public int getCurrentVolume() {
-        return currentVolume;
-    }
-
-    public void setCurrentVolume(int currentVolume) {
-        this.currentVolume = currentVolume;
-    }
-
-    // Выбор станции с помощью цифровых клавиш
-    public void setStationWithNumButton(int numButtonStation) {
-        if (numButtonStation < minNumStation || numButtonStation > maxNumStation) {
-            return;
-        }
-        currentStation = numButtonStation;
-    }
-
-    // Переключение на следующую станцию
-    public void setNextStation() {
-        if (currentStation != maxNumStation) {
-            currentStation++;
-        } else {
-            currentStation = minNumStation;
+    public void nextRadioChanel() {
+        this.currentRadioChanel += 1;
+        if (currentRadioChanel == 10) {
+            this.currentRadioChanel = 0;
         }
     }
 
-    //  Переключение на предыдущую станцию
-    public void setPrevStation() {
-        if (currentStation != minNumStation) {
-            currentStation--;
-        } else {
-            currentStation = maxNumStation;
+    public void prevRadioChanel() {
+        this.currentRadioChanel -= 1;
+        if (currentRadioChanel == -1) {
+            this.currentRadioChanel = 9;
         }
     }
 
-    //  Увеличение громкости
-    public void volumeUp() {
-        if (currentVolume < maxVolume) {
-            currentVolume++;
+    public int getCurrentRadioVolume() {
+        return currentRadioVolume;
+    }
+
+    public void setCurrentRadioVolume(int currentRadioVolume) {
+        if (currentRadioVolume >= 0 && currentRadioVolume <= 10)
+            this.currentRadioVolume = currentRadioVolume;
+    }
+
+    public void increaseVolume() {
+        if (currentRadioVolume < 10) {
+            currentRadioVolume++;
         }
     }
 
-    //  Уменьшение громкости
-    public void volumeDown() {
-        if (currentVolume > minVolume) {
-            currentVolume--;
-        }
+    public void reduceVolume() {
+        if (currentRadioVolume > 0)
+            currentRadioVolume--;
     }
 }
