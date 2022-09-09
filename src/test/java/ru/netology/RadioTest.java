@@ -1,102 +1,183 @@
 package ru.netology;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+public class RadioTests {
 
-class RadioTest {
-    Radio radio = new Radio();
-
-    // Выбор станции с помощью цифровых клавиш
     @Test
-    public void shouldSetStationWithNumButton() {
-        radio.setStationWithNumButton(7);
+    public void shouldSnowCurrentChanel() {
+        Radio rad = new Radio();
 
-        assertEquals(7, radio.getCurrentStation());
-    }
+        rad.setCurrentRadioChanel(5);
 
-    // Сверх лимита
-    @Test
-    public void shouldNotSetStationWithNumButtonAboveLimit() {
-        radio.setStationWithNumButton(10);
+        int expected = 5;
+        int actual = rad.getCurrentRadioChanel();
 
-        assertEquals(0, radio.getCurrentStation());
-    }
-
-    // Ниже лимита
-    @Test
-    public void shouldNotSetStationWithNumButtonBelowLimit() {
-        radio.setStationWithNumButton(-1);
-
-        assertEquals(0, radio.getCurrentStation());
-    }
-
-    // Переключение станции нажатием кнопки Next
-    @Test
-    void shouldSetNextStation() {
-        radio.setCurrentStation(3);
-
-        radio.setNextStation();
-        assertEquals(4, radio.getCurrentStation());
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldSetFirstStation() {
-        radio.setCurrentStation(9);
+    public void shouldSnowCurrentChanelMoreThenNine() {
+        Radio rad = new Radio();
 
-        radio.setNextStation();
-        assertEquals(0, radio.getCurrentStation());
-    }
+        rad.setCurrentRadioChanel(10);
 
-    // Переключение станции нажатием кнопки Prev
-    @Test
-    void shouldSetPrevStation() {
-        radio.setCurrentStation(4);
+        int expected = 0;
+        int actual = rad.getCurrentRadioChanel();
 
-        radio.setPrevStation();
-        assertEquals(3, radio.getCurrentStation());
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldSetLastStation() {
-        radio.setPrevStation();
+    public void shouldSnowCurrentChanelLessThenZero() {
+        Radio rad = new Radio();
 
-//        radio.setCurrentStation(0);
-        assertEquals(9, radio.getCurrentStation());
-    }
+        rad.setCurrentRadioChanel(-1);
 
-    // Увеличение громкости
-    @Test
-    public void shouldVolumeUp(){
-        radio.setCurrentVolume(5);
+        int expected = 0;
+        int actual = rad.getCurrentRadioChanel();
 
-        radio.volumeUp();
-        assertEquals(6, radio.getCurrentVolume());
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldNotVolumeUp(){
-        radio.setCurrentVolume(10);
+    public void shouldSnowNextChanelInTheMiddle() {
+        Radio rad = new Radio();
 
-        radio.volumeUp();
-        assertEquals(10, radio.getCurrentVolume());
-    }
+        rad.setCurrentRadioChanel(8);
+        rad.nextRadioChanel();
 
-    // Уменьшение громкости
-    @Test
-    public void shouldVolumeDown(){
-        radio.setCurrentVolume(5);
+        int expected = 9;
+        int actual = rad.getCurrentRadioChanel();
 
-        radio.volumeDown();
-        assertEquals(4, radio.getCurrentVolume());
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldNotVolumeDown(){
-        radio.setCurrentVolume(0);
+    public void shouldSnowNextChanelOnTheBorder() {
+        Radio rad = new Radio();
 
-        radio.volumeDown();
-        assertEquals(0, radio.getCurrentVolume());
+        rad.setCurrentRadioChanel(9);
+        rad.nextRadioChanel();
+
+        int expected = 0;
+        int actual = rad.getCurrentRadioChanel();
+
+        assertEquals(expected, actual);
     }
 
+    @Test
+    public void shouldSnowPrevChanelInTheMiddle() {
+        Radio rad = new Radio();
+
+        rad.setCurrentRadioChanel(3);
+        rad.prevRadioChanel();
+
+        int expected = 2;
+        int actual = rad.getCurrentRadioChanel();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSnowPrevChanelOnTheBorder() {
+        Radio rad = new Radio();
+
+        rad.setCurrentRadioChanel(0);
+        rad.prevRadioChanel();
+
+        int expected = 9;
+        int actual = rad.getCurrentRadioChanel();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSnowCurrentVolume() {
+        Radio rad = new Radio();
+
+        rad.setCurrentRadioVolume(5);
+
+        int expected = 5;
+        int actual = rad.getCurrentRadioVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSnowCurrentVolumeMoreThenTen() {
+        Radio rad = new Radio();
+
+        rad.setCurrentRadioVolume(11);
+
+        int expected = 0;
+        int actual = rad.getCurrentRadioVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSnowCurrentVolumeLessThenZero() {
+        Radio rad = new Radio();
+
+        rad.setCurrentRadioVolume(-2);
+
+        int expected = 0;
+        int actual = rad.getCurrentRadioVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSnowNextVolumeInTheMiddle() {
+        Radio rad = new Radio();
+
+        rad.setCurrentRadioVolume(6);
+        rad.increaseVolume();
+
+        int expected = 7;
+        int actual = rad.getCurrentRadioVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSnowNextVolumeOnTheBorder() {
+        Radio rad = new Radio();
+
+        rad.setCurrentRadioVolume(10);
+        rad.increaseVolume();
+
+        int expected = 10;
+        int actual = rad.getCurrentRadioVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSnowPrevVolumeInTheMiddle() {
+        Radio rad = new Radio();
+
+        rad.setCurrentRadioVolume(8);
+        rad.reduceVolume();
+
+        int expected = 7;
+        int actual = rad.getCurrentRadioVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSnowPrevVolumeOnTheBorder() {
+        Radio rad = new Radio();
+
+        rad.setCurrentRadioVolume(0);
+        rad.reduceVolume();
+
+        int expected = 0;
+        int actual = rad.getCurrentRadioVolume();
+
+        assertEquals(expected, actual);
+    }
 }
