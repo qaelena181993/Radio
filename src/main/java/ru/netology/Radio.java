@@ -4,7 +4,25 @@ public class Radio {
 
     private int currentRadioChanel;
     private int currentRadioVolume;
-
+    
+    //Конструкторы
+    
+    public currentRadioChanel() {
+    }
+    
+    public currentRadioChanel(int currentRadioChanel) {
+        this.currentRadioChanel = currentRadioChanel;
+    }
+    
+    public currentRadioVolume() {
+    }
+    
+    public currentRadioVolume(int currentRadioVolume) {
+        this.currentRadioVolume = currentRadioVolume;
+    }
+    
+    //Геттеры и сеттеры 
+        
     public int getCurrentRadioChanel() {
         return currentRadioChanel;
     }
